@@ -1,7 +1,11 @@
 import { Formik, Field, Form } from "formik";
 import styles from "../style/Login.module.css";
+// import * as Yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const initialValuesForm = {
     fullname: "",
     phone: "",
@@ -9,28 +13,40 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   };
+  const notify = () => toast.success("You registerd successfully!");
+
   let users = [];
   const handleSubmit = (values) => {
-    users = localStorage.getItem("users") ? localStorage.getItem("users") : [];
+    users = localStorage.getItem("users")
+      ? JSON.parse(localStorage.getItem("users"))
+      : [];
     users.push(values);
     localStorage.setItem("users", JSON.stringify(users));
+    notify();
+    setTimeout(() => {
+      navigate("/login");
+    }, 500);
   };
   const isValidEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+  const isValidNumber = /^[0-9]+$/;
 
   const handleValidate = (values) => {
-    // debugger;
     const errors = {};
     if (!values.fullname) {
       errors.fullname = "Please enter your fullname ";
     }
     if (!values.phone) {
-      errors.phone = "Please enter your mobile number";
+      errors.phone = "Please enter your mobile number ";
+    } else {
+      const isValid = isValidNumber.test(values.phone);
+      if (!isValid) {
+        errors.phone = "Please enter a valid mobile number ";
+      }
     }
     if (!values.email) {
       errors.email = "Please enter your email ";
     } else {
       const isValid = isValidEmail.test(values.email);
-      console.log(isValid);
       if (!isValid) {
         errors.email = "Please enter a valid email";
       }
@@ -114,6 +130,7 @@ const Signup = () => {
           </Form>
         )}
       </Formik>
+      <Toaster />
     </div>
   );
 };
