@@ -7,6 +7,7 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   const [showSidebar, setShowsidebar] = useState(false);
@@ -45,31 +46,31 @@ function Sidebar() {
             </li>
 
             <li className="sidebar-item">
-              <a href="#" className="text-white font-bold ">
+              <Link to="/users" className="text-white font-bold ">
                 <HomeIcon className="sidebar-icon" />
                 Home
-              </a>
+              </Link>
             </li>
 
             <li className="sidebar-item">
-              <a href="#" className="text-white font-bold ">
+              <Link href="#" className="text-white font-bold ">
                 <DocumentIcon className="sidebar-icon" />
                 Blogs
-              </a>
+              </Link>
             </li>
 
             <li className="sidebar-item">
-              <a href="#" className="text-white font-bold ">
+              <Link href="#" className="text-white font-bold ">
                 <DocumentTextIcon className="sidebar-icon" />
                 Reports
-              </a>
+              </Link>
             </li>
 
             <li className="sidebar-item">
-              <a href="#" className="text-white font-bold ">
+              <Link href="#" className="text-white font-bold ">
                 <EnvelopeIcon className="sidebar-icon" />
                 Inbox
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
